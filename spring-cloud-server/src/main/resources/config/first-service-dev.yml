@@ -1,8 +1,6 @@
 spring:
   active:
     profiles: dev
-server:
-  port: 8089
 
 test: default
 my:
