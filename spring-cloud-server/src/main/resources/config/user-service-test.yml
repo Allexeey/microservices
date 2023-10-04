@@ -1,0 +1,12 @@
+spring:
+  active:
+    profiles: test
+server:
+  port: 8082
+
+test: default
+my:
+  property:
+    test: Hello user-service test
+
+description: "Hi i am user-service-test"
