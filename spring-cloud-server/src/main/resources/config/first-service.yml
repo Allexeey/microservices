@@ -1,9 +1,0 @@
-server:
-  port: 8089
-
-test: default
-my:
-  property:
-    test: Hello first-service
-
-description: "Hi first-service!!"

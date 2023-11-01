@@ -2,9 +2,7 @@ spring:
   active:
     profiles: dev
 
-test: default
 my:
   property:
-    test: Hello first-service dev!!
-
-description: "Hi first-service dev!!"
+    test: Hello dev!!
+    

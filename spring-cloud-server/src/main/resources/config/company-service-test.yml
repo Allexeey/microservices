@@ -1,10 +1,9 @@
-spring:
-  active:
-    profiles: test
+server:
+  port: 8083
 
 test: default
 my:
   property:
-    test: Hello company-service test
+    test: company-service
 
-description: "Hi i am company-service-test"
+description: "hi i am company-service-test"
