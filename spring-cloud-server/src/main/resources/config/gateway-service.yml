@@ -1,0 +1,9 @@
+server:
+  port: 8085
+
+test: default
+my:
+  property:
+    test: gateway-service
+
+description: "hi i am gateway-service"
