@@ -14,14 +14,15 @@ spring:
         - id: company-service
           uri: lb://company-service
           predicates:
-            - Path=/company-service/**
+            - Path=/company/**
           filters:
             - StripPrefix=1
         ## user-service
         - id: user-service
           uri: lb://user-service
+          ## @RequestMapping
           predicates:
-            - Path=/user-service/**
+            - Path=/user/**
           filters:
             - StripPrefix=1
 
