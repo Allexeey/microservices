@@ -1,9 +1,30 @@
 server:
   port: 8085
 
-test: default
-my:
-  property:
-    test: gateway-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
 
-description: "hi i am gateway-service"
+logging:
+  pattern:
+    console: "%C{1.} [%-5level] %d{HH:mm:ss} -%msg%n"
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        ## user-service
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - StripPrefix=1
+        ## company-service
+        - id: company-service
+          uri: lb://company-service
+          predicates:
+            - Path=/company-service/**
+          filters:
+            - StripPrefix=1

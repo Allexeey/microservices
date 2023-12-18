@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,12 +23,12 @@ public class CompanyService {
 
     @Transactional
     public Long createCompany(CompanyDto companyDto) {
-        Boolean exist = client.existsById(companyDto.getUserId());
-        if(!exist) {
-            repo.save(mapper.map(companyDto, Company.class));
-            throw new EntityNotFoundException("Компания создана. Директор с id = %s не существует".formatted(companyDto.getUserId()));
+        if (companyDto.getUserId() != null) {
+            Boolean exist = client.existsById(companyDto.getUserId());
+            if (!exist) {
+                throw new EntityNotFoundException("Компания создана. Директор с id = %s не существует".formatted(companyDto.getUserId()));
+            }
         }
-
         return repo.save(mapper.map(companyDto, Company.class)).getId();
     }
 
@@ -37,7 +38,18 @@ public class CompanyService {
     }
 
     @Transactional
+    public CompanyDto getById(Long id) {
+        return mapper.map(repo.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("Компания с id: " + id + " - не существует"))
+                , CompanyDto.class);
+    }
+
+    @Transactional
     public List<CompanyDto> getAllCompanies() {
-        return repo.findAll().stream().map(company -> mapper.map(company, CompanyDto.class)).toList();
+        List<Company> rows = repo.findAll();
+        if (rows == null){
+            rows = new ArrayList<>();
+        }
+        return rows.stream().map(company -> mapper.map(company, CompanyDto.class)).toList();
     }
 }
